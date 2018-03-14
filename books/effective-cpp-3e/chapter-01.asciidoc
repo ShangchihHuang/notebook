@@ -1,9 +1,7 @@
-= Items
+= Chapter 1. Accustoming Yourself to C++
 :toc:
 
-== Chapter 1. Accustoming Yourself to C++
-
-=== Item 1. View C++ as a federation of languages
+== Item 1. View C++ as a federation of languages
 
 C++ is a multiparadigm programming language, one supporting a combination of procedural, object-oriented, functional, generic, and metaprogramming features.
 
