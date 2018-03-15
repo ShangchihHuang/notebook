@@ -13,3 +13,82 @@ Four sublanguages:
 * The STL
 
 Effective programming requires that we change strategy when we switch from one sublanguage to another. For example, pass-by-value is generally more efficient than pass-by-reference for built-in (C-like) types, but when you move to OOP C++, the existence of user-defined constructors and destructors means that pass-by-reference is more efficient. When we across into the STL, because iterators and function objects are modeled on pointers in C, the pass-by-value rule applies again.
+
+== Item 2. Prefer consts, enums and inlines to #defines
+
+This item might by called "prefer the compiler to the preprocessor".
+
+== Item 3. Use const whenever possible
+
+Two kinds of constness of const member functions:
+
+* _Bitwise constness_ (_physical constness_).
+* _Logical constness_.
+
+Bitwise constness is C++'s definition of constness, and a `const` member function isn't allowed to modify any of the non-static data members of the object on which it is invoked. However, a `const` member function can modify what a pointer points to, that make it doesn't very look like a `const`. For example:
+
+[source, c++]
+----
+class CTextBlock {
+public:
+    // ...
+
+    char& operator[](std::size_t position) const { return pText[position]; }
+private:
+    char *pText;
+};
+
+const CTextBlock cctb("Hello");
+char *pc = &cctb[0];
+*pc = 'J'; // cctb now has the value "Jello".
+----
+
+In logical constness, a `const` member function might modify its member, but only in ways that clients cannot detect. How to do that? Just declaring some member variables as `mutable`.
+
+[source, c++]
+----
+class CTextBlock {
+public:
+    // ...
+
+    std::size_t length() const; // logical const
+private:
+    char *pText;
+    mutable std::size_t textLength;
+    mutable bool lengthIsValid;
+};
+
+std::size_t CTextBlock::length() const
+{
+    if (!lengthIsValid) {
+        textLength = std::strlen(pText);
+        lengthIsValid = true;
+    }
+    return textLength;
+}
+----
+
+Suppose we have two versions of `operator[]` in a `TextBlock` class:
+
+[source, c++]
+----
+class TextBlock {
+public:
+    // ...
+
+    const char& operator[](std::size_t position) const;
+    char& operator[](std::size_t position);
+private:
+    std::string text;
+};
+----
+
+For the code reusable, we can implement the non-const version based on the cont version through casting.
+
+[source, c++]
+----
+char& operator[](std::size_t position)
+{
+    return const_cast<char&>(static_cast<const TextBlock&>(*this)[position]);
+}
+----
