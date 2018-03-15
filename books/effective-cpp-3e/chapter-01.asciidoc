@@ -83,7 +83,7 @@ private:
 };
 ----
 
-For the code reusable, we can implement the non-const version based on the cont version through casting.
+For the code reusable, we can implement the non-const version based on the const version through casting.
 
 [source, c++]
 ----
