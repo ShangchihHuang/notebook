@@ -10,3 +10,7 @@
 ### C++
 
 - [*Effective C++*, 3rd Edition](effective-cpp-3e). Scott Meyers. 2005.
+
+### JavaScript
+
+- [*Eloquent JavaScript*, 3rd Edition](eloquentjs3e). Marijn Haverbeke. 2018.
