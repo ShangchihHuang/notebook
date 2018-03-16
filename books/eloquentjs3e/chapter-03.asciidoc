@@ -1,0 +1,6 @@
+= Chapter 3. Functions
+:toc:
+
+== Parameters and Scopes
+
+Bindings declared with `let` and `const` are local to the _block_ that they are declared in, while in pre-2015 JavaScript, only functions created new scopes, so old-style bindings, created with the `var` keyword, are visible throughout the whole function that they appear in.
