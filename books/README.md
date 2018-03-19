@@ -14,3 +14,7 @@
 ### JavaScript
 
 - [*Eloquent JavaScript*, 3rd Edition](eloquentjs3e). Marijn Haverbeke. 2018.
+
+## Game
+
+- [*Game Coding Complete*, 4th Edition](game-coding-complete-4e). Mike “MrMike” McShaffry and David “Rez” Graham. 2012
